@@ -11,6 +11,17 @@ Vue.use(VueMeta)
 
 let app = document.getElementById('app')
 
+Vue.prototype.$sidebar = new Vue({
+  data: {
+    state: false
+  },
+  methods: {
+    toggle() {
+      this.state = !this.state
+    }
+  }
+})
+
 new Vue({
   metaInfo: {
     titleTemplate: (title) => title ? `${title} - Ping CRM` : 'Ping CRM'

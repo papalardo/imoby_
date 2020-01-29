@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contact;
 use Inertia\Inertia;
+use App\Models\Tenant;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
@@ -15,19 +16,8 @@ class PropertiesController extends Controller
     {
         return Inertia::render('Contacts/Index', [
             'filters' => Request::all('search', 'trashed'),
-            'contacts' => Tenant::orderByName()
-                ->filter(Request::only('search', 'trashed'))
-                ->paginate()
-                ->transform(function ($contact) {
-                    return [
-                        'id' => $contact->id,
-                        'name' => $contact->name,
-                        'phone' => $contact->phone,
-                        'city' => $contact->city,
-                        'deleted_at' => $contact->deleted_at,
-                        'organization' => $contact->organization ? $contact->organization->only('name') : null,
-                    ];
-                }),
+            'contacts' => Tenant::
+                paginate()
         ]);
     }
 

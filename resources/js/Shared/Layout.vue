@@ -66,6 +66,17 @@ export default {
       accounts: null,
     }
   },
+  mounted() {
+    console.log(this.$sidebar.state);
+    
+    this.$watch('$sidebar.state', (value) => {
+      console.log('value ===>', value);
+    })
+
+    setTimeout(() => {
+      this.$sidebar.toggle()
+    }, 2000)
+  },
   methods: {
     url() {
       return location.pathname.substr(1)
