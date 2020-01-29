@@ -30,6 +30,7 @@ class CreateContractsTable extends Migration
             $table->foreign('locator_id')->references('id')->on('locators');
             
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -19,6 +19,7 @@ class CreateLocatorsTable extends Migration
             $table->string('last_name');
             $table->string('cpf');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

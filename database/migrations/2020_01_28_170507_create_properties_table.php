@@ -18,6 +18,7 @@ class CreatePropertiesTable extends Migration
             $table->string('address');
             $table->string('ceb_code')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

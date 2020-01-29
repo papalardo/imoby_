@@ -22,6 +22,7 @@ class CreateTenantsTable extends Migration
             $table->string('rg_agency_emissor');
             $table->string('rg_agency_state');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

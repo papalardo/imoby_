@@ -6,22 +6,22 @@
         <div :class="isUrl('') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Dashboard</div>
       </inertia-link>
     </div> -->
-    <div class="mb-4">
+    <!-- <div class="mb-4">
       <inertia-link class="flex items-center group py-3" :href="route('organizations')">
         <icon name="office" class="w-4 h-4 mr-2" :class="isUrl('organizations') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
         <div :class="isUrl('organizations') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Imóveis</div>
       </inertia-link>
-    </div>
+    </div> -->
     <div class="mb-4">
-      <inertia-link class="flex items-center group py-3" :href="route('properties')">
-        <icon name="office" class="w-4 h-4 mr-2" :class="isUrl('organizations') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-        <div :class="isUrl('properties') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Inquilinos</div>
+      <inertia-link class="flex items-center group py-3" :href="route('tenants')">
+        <icon name="users" class="w-4 h-4 mr-2" :class="isUrl('tenants') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
+        <div :class="isUrl('tenants') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Inquilinos</div>
       </inertia-link>
     </div>
     <div class="mb-4">
-      <inertia-link class="flex items-center group py-3" :href="route('contacts')">
-        <icon name="users" class="w-4 h-4 mr-2" :class="isUrl('contacts') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-        <div :class="isUrl('contacts') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Proprietários</div>
+      <inertia-link class="flex items-center group py-3" :href="route('properties')">
+        <icon name="users" class="w-4 h-4 mr-2" :class="isUrl('properties') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
+        <div :class="isUrl('properties') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Imóveis</div>
       </inertia-link>
     </div>
     <div class="mb-4">
