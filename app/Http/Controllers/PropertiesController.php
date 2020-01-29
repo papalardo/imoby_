@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contact;
 use Inertia\Inertia;
 use App\Models\Tenant;
+use App\Models\Property;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
@@ -14,104 +15,58 @@ class PropertiesController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Contacts/Index', [
+        return Inertia::render('Properties/Index', [
             'filters' => Request::all('search', 'trashed'),
-            'contacts' => Tenant::
-                paginate()
+            'properties' => Property::filter(Request::only('search', 'trashed'))->paginate()
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('Contacts/Create', [
-            'organizations' => Auth::user()->account
-                ->organizations()
-                ->orderBy('name')
-                ->get()
-                ->map
-                ->only('id', 'name'),
-        ]);
+        return Inertia::render('Properties/Create');
     }
 
     public function store()
     {
-        Auth::user()->account->contacts()->create(
+        Property::create(
             Request::validate([
-                'first_name' => ['required', 'max:50'],
-                'last_name' => ['required', 'max:50'],
-                'organization_id' => ['nullable', Rule::exists('organizations', 'id')->where(function ($query) {
-                    $query->where('account_id', Auth::user()->account_id);
-                })],
-                'email' => ['nullable', 'max:50', 'email'],
-                'phone' => ['nullable', 'max:50'],
-                'address' => ['nullable', 'max:150'],
-                'city' => ['nullable', 'max:50'],
-                'region' => ['nullable', 'max:50'],
-                'country' => ['nullable', 'max:2'],
-                'postal_code' => ['nullable', 'max:25'],
+                'address' => ['required', 'max:50'],
+                'ceb_code' => ['required', 'max:50'],
             ])
         );
 
-        return Redirect::route('contacts')->with('success', 'Contact created.');
+        return Redirect::route('properties')->with('success', 'Contact created.');
     }
 
-    public function edit(Contact $contact)
+    public function edit(Property $property)
     {
-        return Inertia::render('Contacts/Edit', [
-            'contact' => [
-                'id' => $contact->id,
-                'first_name' => $contact->first_name,
-                'last_name' => $contact->last_name,
-                'organization_id' => $contact->organization_id,
-                'email' => $contact->email,
-                'phone' => $contact->phone,
-                'address' => $contact->address,
-                'city' => $contact->city,
-                'region' => $contact->region,
-                'country' => $contact->country,
-                'postal_code' => $contact->postal_code,
-                'deleted_at' => $contact->deleted_at,
-            ],
-            'organizations' => Auth::user()->account->organizations()
-                ->orderBy('name')
-                ->get()
-                ->map
-                ->only('id', 'name'),
+        return Inertia::render('Properties/Edit', [
+            'property' => $property->toArray(),
         ]);
     }
 
-    public function update(Contact $contact)
+    public function update(Request $request, Property $property)
     {
-        $contact->update(
+        $property->update(
             Request::validate([
-                'first_name' => ['required', 'max:50'],
-                'last_name' => ['required', 'max:50'],
-                'organization_id' => ['nullable', Rule::exists('organizations', 'id')->where(function ($query) {
-                    $query->where('account_id', Auth::user()->account_id);
-                })],
-                'email' => ['nullable', 'max:50', 'email'],
-                'phone' => ['nullable', 'max:50'],
-                'address' => ['nullable', 'max:150'],
-                'city' => ['nullable', 'max:50'],
-                'region' => ['nullable', 'max:50'],
-                'country' => ['nullable', 'max:2'],
-                'postal_code' => ['nullable', 'max:25'],
+                'address' => ['required', 'max:50'],
+                'ceb_code' => ['required', 'max:50'],
             ])
         );
 
         return Redirect::back()->with('success', 'Contact updated.');
     }
 
-    public function destroy(Contact $contact)
+    public function destroy(Property $property)
     {
-        $contact->delete();
+        $property->delete();
 
         return Redirect::back()->with('success', 'Contact deleted.');
     }
 
-    public function restore(Contact $contact)
+    public function restore(Property $property)
     {
-        $contact->restore();
+        $property->restore();
 
         return Redirect::back()->with('success', 'Contact restored.');
     }
