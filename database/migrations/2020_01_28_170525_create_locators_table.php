@@ -18,6 +18,9 @@ class CreateLocatorsTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('cpf');
+            $table->string('rg');
+            $table->string('rg_agency_emissor');
+            $table->string('rg_agency_state');
             $table->timestamps();
             $table->softDeletes();
         });

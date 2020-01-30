@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contact;
 use Inertia\Inertia;
 use App\Models\Tenant;
+use App\Models\Locator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
@@ -14,87 +15,50 @@ class LocatorsController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Contacts/Index', [
+        return Inertia::render('Locators/Index', [
             'filters' => Request::all('search', 'trashed'),
-            'contacts' => Locator::paginate()
+            'locators' => Locator::filter(Request::only('search', 'trashed'))->paginate()
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('Contacts/Create', [
-            'organizations' => Auth::user()->account
-                ->organizations()
-                ->orderBy('name')
-                ->get()
-                ->map
-                ->only('id', 'name'),
-        ]);
+        return Inertia::render('Locators/Create');
     }
 
     public function store()
     {
-        Auth::user()->account->contacts()->create(
+        Locator::create(
             Request::validate([
                 'first_name' => ['required', 'max:50'],
                 'last_name' => ['required', 'max:50'],
-                'organization_id' => ['nullable', Rule::exists('organizations', 'id')->where(function ($query) {
-                    $query->where('account_id', Auth::user()->account_id);
-                })],
-                'email' => ['nullable', 'max:50', 'email'],
-                'phone' => ['nullable', 'max:50'],
-                'address' => ['nullable', 'max:150'],
-                'city' => ['nullable', 'max:50'],
-                'region' => ['nullable', 'max:50'],
-                'country' => ['nullable', 'max:2'],
-                'postal_code' => ['nullable', 'max:25'],
+                'cpf' => ['required', 'max:50'],
+                'rg' => ['nullable', 'max:50'],
+                'rg_agency_emissor' => ['nullable', 'max:50'],
+                'rg_agency_state' => ['nullable', 'max:150'],
             ])
         );
 
-        return Redirect::route('contacts')->with('success', 'Contact created.');
+        return Redirect::route('locators')->with('success', 'Contact created.');
     }
 
-    public function edit(Contact $contact)
+    public function edit(Locator $locator)
     {
-        return Inertia::render('Contacts/Edit', [
-            'contact' => [
-                'id' => $contact->id,
-                'first_name' => $contact->first_name,
-                'last_name' => $contact->last_name,
-                'organization_id' => $contact->organization_id,
-                'email' => $contact->email,
-                'phone' => $contact->phone,
-                'address' => $contact->address,
-                'city' => $contact->city,
-                'region' => $contact->region,
-                'country' => $contact->country,
-                'postal_code' => $contact->postal_code,
-                'deleted_at' => $contact->deleted_at,
-            ],
-            'organizations' => Auth::user()->account->organizations()
-                ->orderBy('name')
-                ->get()
-                ->map
-                ->only('id', 'name'),
+        return Inertia::render('Locators/Edit', [
+            'locator' => $locator->toArray(),
         ]);
     }
 
-    public function update(Contact $contact)
+    public function update(Locator $locator)
     {
-        $contact->update(
+        $locator->update(
             Request::validate([
                 'first_name' => ['required', 'max:50'],
                 'last_name' => ['required', 'max:50'],
-                'organization_id' => ['nullable', Rule::exists('organizations', 'id')->where(function ($query) {
-                    $query->where('account_id', Auth::user()->account_id);
-                })],
-                'email' => ['nullable', 'max:50', 'email'],
-                'phone' => ['nullable', 'max:50'],
-                'address' => ['nullable', 'max:150'],
-                'city' => ['nullable', 'max:50'],
-                'region' => ['nullable', 'max:50'],
-                'country' => ['nullable', 'max:2'],
-                'postal_code' => ['nullable', 'max:25'],
+                'cpf' => ['required', 'max:50'],
+                'rg' => ['nullable', 'max:50'],
+                'rg_agency_emissor' => ['nullable', 'max:50'],
+                'rg_agency_state' => ['nullable', 'max:150'],
             ])
         );
 
