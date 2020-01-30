@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Contact;
 use Inertia\Inertia;
 use App\Models\Tenant;
+use App\Models\Locator;
+use App\Models\Contract;
+use App\Models\Property;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
@@ -14,21 +17,17 @@ class ContractsController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Contacts/Index', [
+        return Inertia::render('Contracts/Index', [
             'filters' => Request::all('search', 'trashed'),
-            'contacts' => Contract::paginate()
+            'contracts' => Contract::paginate()
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('Contacts/Create', [
-            'organizations' => Auth::user()->account
-                ->organizations()
-                ->orderBy('name')
-                ->get()
-                ->map
-                ->only('id', 'name'),
+        return Inertia::render('Contracts/Create', [
+            'locators' => Locator::orderBy('first_name')->get()->map->only('id', 'first_name'),
+            'properties' => Property::orderBy('address')->get()->map->only('id', 'address'),
         ]);
     }
 
@@ -56,7 +55,7 @@ class ContractsController extends Controller
 
     public function edit(Contact $contact)
     {
-        return Inertia::render('Contacts/Edit', [
+        return Inertia::render('Contracts/Edit', [
             'contact' => [
                 'id' => $contact->id,
                 'first_name' => $contact->first_name,
