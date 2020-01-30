@@ -18,25 +18,25 @@
     <div class="bg-white rounded shadow overflow-x-auto">
       <table class="w-full whitespace-no-wrap">
         <tr class="text-left font-bold">
-          <th class="px-6 pt-6 pb-4">Name</th>
-          <th class="px-6 pt-6 pb-4">City</th>
-          <th class="px-6 pt-6 pb-4" colspan="2">Phone</th>
+          <th class="px-6 pt-6 pb-4">Locador</th>
+          <th class="px-6 pt-6 pb-4">Imóvel</th>
+          <th class="px-6 pt-6 pb-4" colspan="2">Inquilino</th>
         </tr>
         <tr v-for="contract in contracts.data" :key="contract.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
           <td class="border-t">
             <inertia-link class="px-6 py-4 flex items-center focus:text-indigo-500" :href="route('contracts.edit', contract.id)">
-              {{ contract.name }}
+              {{ contract.locator }}
               <icon v-if="contract.deleted_at" name="trash" class="flex-shrink-0 w-3 h-3 fill-gray-400 ml-2" />
             </inertia-link>
           </td>
           <td class="border-t">
             <inertia-link class="px-6 py-4 flex items-center" :href="route('contracts.edit', contract.id)" tabindex="-1">
-              {{ contract.city }}
+              {{ contract.property }}
             </inertia-link>
           </td>
           <td class="border-t">
             <inertia-link class="px-6 py-4 flex items-center" :href="route('contracts.edit', contract.id)" tabindex="-1">
-              {{ contract.phone }}
+              {{ contract.tenant }}
             </inertia-link>
           </td>
           <td class="border-t w-px">

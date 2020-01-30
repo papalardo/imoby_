@@ -22,12 +22,12 @@ class CreateContractsTable extends Migration
 
             $table->unsignedBigInteger('property_id');
             $table->foreign('property_id')->references('id')->on('properties');
-
-            $table->unsignedBigInteger('tenant_id');
-            $table->foreign('tenant_id')->references('id')->on('tenants');
             
             $table->unsignedBigInteger('locator_id');
             $table->foreign('locator_id')->references('id')->on('locators');
+
+            $table->unsignedBigInteger('tenant_id');
+            $table->foreign('tenant_id')->references('id')->on('tenants');
             
             $table->timestamps();
             $table->softDeletes();
