@@ -35,4 +35,8 @@ class Contract extends Model
     {
         return $this->belongsTo(Property::class);
     }
+
+    public function rentalPayments() {
+        return $this->hasMany(RentalPayment::class);
+    }
 }

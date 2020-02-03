@@ -63,6 +63,10 @@ Route::get('locators', 'LocatorsController@index')->name('locators')->middleware
 Route::resource('locators', 'LocatorsController')->middleware('auth')->except('index');
 Route::put('locators/{locator}/restore')->name('locators.restore')->uses('LocatorsController@restore')->middleware('auth');
 
+Route::model('rental_payment', App\Models\RentalPayment::class);
+Route::get('rental-payment')->name('rental_payment')->uses('RentalPaymentsController@index')->middleware('auth');
+Route::put('rental-payment/{rental_payment}')->name('rental_payment.update')->uses('RentalPaymentsController@update')->middleware('auth');
+
 // Reports
 // Route::get('reports')->name('reports')->uses('ReportsController')->middleware('auth');
 
