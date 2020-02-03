@@ -88,7 +88,7 @@
           </td>
         </tr>
         <tr v-if="payments.data.length === 0">
-          <td class="border-t px-6 py-4" colspan="4">No contracts found.</td>
+          <td class="border-t px-6 py-4 text-align" colspan="5">Nenhum registro encontrado.</td>
         </tr>
       </table>
     </div>

@@ -16,7 +16,7 @@ class RentalPaymentsController extends Controller
         $month = Request::get('month', date('m'));
         $year = Request::get('year', date('Y'));
 
-        $date = Carbon::create($year, $month);
+        $date = Carbon::create($year, $month, 1);
         
         $generateRegistersByMonthCaseNotExits = (function() use ($month, $year, $date) {
             $contracts = Contract::
