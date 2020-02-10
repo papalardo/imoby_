@@ -49,7 +49,12 @@
                             :value="property.id"
                         >{{ property.address }}</option>
                     </select-input>
-                    <text-input v-model="form.price" label="Preço" class="pr-6 pb-8 w-full lg:w-1/2" type="number"></text-input>
+                    <text-input 
+                        v-model="form.price" 
+                        label="Preço" 
+                        class="pr-6 pb-8 w-full lg:w-1/2" 
+                        type="number"
+                    ></text-input>
                     <date-picker
                         v-model="form.date_begin"
                         label="Data início"

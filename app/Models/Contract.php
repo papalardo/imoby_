@@ -37,6 +37,10 @@ class Contract extends Model
     }
 
     public function rentalPayments() {
-        return $this->hasMany(RentalPayment::class);
+        return $this->hasMany(Finance::class)->where('type', Finance::RENTAL_PAYMENTS);
+    }
+
+    public function rentalPayment() {
+        return $this->hasOne(Finance::class)->where('type', Finance::RENTAL_PAYMENTS);
     }
 }

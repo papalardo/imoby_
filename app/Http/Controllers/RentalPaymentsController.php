@@ -19,8 +19,8 @@ class RentalPaymentsController extends Controller
 
         $date = CarbonImmutable::create($year, $month, 1, 0, 0, 0, 'America/Sao_Paulo');
         
-        $generateRegistersByMonthCaseNotExits = (function() use ($month, $year, $date) {
-            $contracts = Contract::
+        $generateRegistersByMonthCaseNotExits = function() use ($month, $year, $date) {
+            return $contracts = Contract::
                 where(function($query) use ($date) {
                     $query->where('date_begin', '<=', $date->toDateString())
                     ->where('date_end', '>=', $date->addMonths(1)->toDateString())
@@ -29,19 +29,21 @@ class RentalPaymentsController extends Controller
                         ->whereYear('date_begin', $date->format('Y'));
                     });
                 })
-                ->whereDoesntHave('rentalPayments', function($query) use ($month, $year) {
+                ->with(['rentalPayment' => function($query) use ($month, $year) {
                     return $query->where('month_ref', $month)->where('year_ref', $year);
-                })
+                }])
                 ->paginate();
                 
-            $contracts->each(function($contract) use ($month, $year) {
-                $contract->rentalPayments()->create([
-                    'month_ref' => $month,
-                    'year_ref' => $year 
-                    ]);
-            });
-        })();
-                
+            // $contracts->each(function($contract) use ($month, $year) {
+            //     $contract->rentalPayments()->create([
+            //         'month_ref' => $month,
+            //         'year_ref' => $year 
+            //         ]);
+            // });
+        };
+         
+        dd($generateRegistersByMonthCaseNotExits()->toArray());
+
         $payments = RentalPayment::with('contract.tenant', 'contract.property')
             ->where('month_ref', $month)
             ->where('year_ref', $year)
