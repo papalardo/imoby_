@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Finance extends Model
 {
     CONST RENTAL_PAYMENTS = 'rental_payments';
+
+    CONST COMMISSION = 'commission';
     
     protected $fillable = [
         'contract_id',
@@ -15,5 +17,10 @@ class Finance extends Model
         'type',
         'debt',
         'credit',
+    ];
+
+    protected $casts = [
+        'debt' => 'double',
+        'credit' => 'double',
     ];
 }

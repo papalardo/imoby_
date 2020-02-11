@@ -29,6 +29,8 @@ class CreateContractsTable extends Migration
             $table->unsignedBigInteger('tenant_id');
             $table->foreign('tenant_id')->references('id')->on('tenants');
             
+            $table->double('price');
+            
             $table->timestamps();
             $table->softDeletes();
         });

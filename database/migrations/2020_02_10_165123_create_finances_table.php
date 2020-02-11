@@ -19,13 +19,16 @@ class CreateFinancesTable extends Migration
             $table->unsignedBigInteger('contract_id');
             $table->foreign('contract_id')->references('id')->on('contracts');
 
+            $table->unsignedBigInteger('property_owner_id');
+            $table->foreign('property_owner_id')->references('id')->on('property_owners');
+
             $table->integer('month_ref');
 
             $table->integer('year_ref');
             
             $table->string('type');
-            $table->double('debt');
-            $table->double('credit');
+            $table->double('debt')->nullable();
+            $table->double('credit')->nullable();
             $table->timestamps();
         });
     }

@@ -14,6 +14,7 @@ class Contract extends Model
         'property_id',
         'locator_id',
         'tenant_id',
+        'price'
     ];
 
     protected $dates = [

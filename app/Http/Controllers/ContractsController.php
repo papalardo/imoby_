@@ -49,6 +49,7 @@ class ContractsController extends Controller
                 'tenant_id' => ['nullable', Rule::exists('tenants', 'id')],
                 'date_begin' => ['nullable', 'max:10'],
                 'date_end' => ['nullable', 'max:10'],
+                'price' => ['numeric'],
             ])
         );
 

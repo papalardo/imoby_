@@ -65,6 +65,8 @@ Route::put('locators/{locator}/restore')->name('locators.restore')->uses('Locato
 
 Route::model('rental_payment', App\Models\RentalPayment::class);
 Route::get('rental-payment')->name('rental_payment')->uses('RentalPaymentsController@index')->middleware('auth');
+Route::get('rental-payment/{month}/{year}/{contract}')->name('rental_payment.create')->uses('RentalPaymentsController@create')->middleware('auth');
+Route::post('rental-payment/{contract}')->name('rental_payment.store')->uses('RentalPaymentsController@store')->middleware('auth');
 Route::put('rental-payment/{rental_payment}')->name('rental_payment.update')->uses('RentalPaymentsController@update')->middleware('auth');
 
 // Reports

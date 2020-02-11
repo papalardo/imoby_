@@ -17,6 +17,10 @@ class CreatePropertiesTable extends Migration
             $table->bigIncrements('id');
             $table->string('address');
             $table->string('ceb_code')->nullable();
+            
+            $table->unsignedBigInteger('property_owner_id');
+            $table->foreign('property_owner_id')->references('id')->on('property_owners');
+            
             $table->timestamps();
             $table->softDeletes();
         });
