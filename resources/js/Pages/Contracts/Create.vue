@@ -13,14 +13,14 @@
 			<form @submit.prevent="submit">
 				<div class="p-8 -mr-6 -mb-8 flex flex-wrap">
 					<select-input
-						v-model="form.locator_id"
-						:errors="$page.errors.locator_id"
+						v-model="form.property_owner_id"
+						:errors="$page.errors.property_owner_id"
 						class="pr-6 pb-8 w-full lg:w-1/2"
 						label="Locatário"
 					>
 						<option :value="null" />
 						<option
-							v-for="locator in locators"
+							v-for="locator in propertyOwners"
 							:key="locator.id"
 							:value="locator.id"
 						>
@@ -28,10 +28,10 @@
 						</option>
 					</select-input>
 					<select-input
-						v-model="form.property_id"
-						:errors="$page.errors.property_id"
+						v-model="form.tenant_id"
+						:errors="$page.errors.tenant_id"
 						class="pr-6 pb-8 w-full lg:w-1/2"
-						label="Imóvel"
+						label="Inquilino"
 					>
 						<option :value="null" />
 						<option
@@ -43,10 +43,10 @@
 						</option>
 					</select-input>
 					<select-input
-						v-model="form.tenant_id"
-						:errors="$page.errors.tenant_id"
+						v-model="form.property_id"
+						:errors="$page.errors.property_id"
 						class="pr-6 pb-8 w-full lg:w-1/2"
-						label="Inquilino"
+						label="Imóvel"
 					>
 						<option :value="null" />
 						<option
@@ -110,7 +110,7 @@ export default {
     },
     remember: 'form',
     props: {
-        locators: Array,
+        propertyOwners: Array,
         properties: Array,
         tenants: Array,
     },
@@ -118,7 +118,7 @@ export default {
         return {
             sending: false,
             form: {
-                locator_id: null,
+                property_owner_id: null,
                 property_id: null,
                 date_begin: null,
                 date_end: null,

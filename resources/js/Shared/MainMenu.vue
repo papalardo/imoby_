@@ -36,7 +36,7 @@ export default {
 			},
 			locators: {
 				icon: 'office',
-				label: 'Locadores',
+				label: 'Proprietários',
 			},
 			tenants: {
 				icon: 'users',

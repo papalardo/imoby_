@@ -59,9 +59,9 @@ Route::put('tenants/{tenant}/restore')->name('tenants.restore')->uses('TenantsCo
 Route::get('contracts', 'ContractsController@index')->name('contracts')->middleware('remember', 'auth');
 Route::resource('contracts', 'ContractsController')->middleware('auth')->except('index');
 
-Route::get('locators', 'LocatorsController@index')->name('locators')->middleware('remember', 'auth');
-Route::resource('locators', 'LocatorsController')->middleware('auth')->except('index');
-Route::put('locators/{locator}/restore')->name('locators.restore')->uses('LocatorsController@restore')->middleware('auth');
+Route::get('locators', 'PropertyOwnerController@index')->name('locators')->middleware('remember', 'auth');
+Route::resource('locators', 'PropertyOwnerController')->middleware('auth')->except('index');
+Route::put('locators/{locator}/restore')->name('locators.restore')->uses('PropertyOwnerController@restore')->middleware('auth');
 
 Route::model('rental_payment', App\Models\RentalPayment::class);
 Route::get('rental-payment')->name('rental_payment')->uses('RentalPaymentsController@index')->middleware('auth');

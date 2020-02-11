@@ -23,8 +23,8 @@ class CreateContractsTable extends Migration
             $table->unsignedBigInteger('property_id');
             $table->foreign('property_id')->references('id')->on('properties');
             
-            $table->unsignedBigInteger('locator_id');
-            $table->foreign('locator_id')->references('id')->on('locators');
+            $table->unsignedBigInteger('property_owner_id');
+            $table->foreign('property_owner_id')->references('id')->on('property_owners');
 
             $table->unsignedBigInteger('tenant_id');
             $table->foreign('tenant_id')->references('id')->on('tenants');

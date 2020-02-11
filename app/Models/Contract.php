@@ -12,7 +12,7 @@ class Contract extends Model
         'date_begin',
         'date_end',
         'property_id',
-        'locator_id',
+        'property_owner_id',
         'tenant_id',
         'price'
     ];
@@ -22,9 +22,9 @@ class Contract extends Model
         'date_end',
     ];
 
-    public function locator() 
+    public function propertyOwner() 
     {
-        return $this->belongsTo(Locator::class);
+        return $this->belongsTo(PropertyOwner::class);
     }
 
     public function tenant() 

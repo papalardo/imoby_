@@ -11,6 +11,7 @@ class Property extends Model
     protected $fillable = [
         'address',
         'ceb_code',
+        'property_owner_id'
     ];
 
     public function scopeFilter($query, array $filters)

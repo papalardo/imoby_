@@ -36,7 +36,7 @@ class RentalPaymentsController extends Controller
             ->transform(function($payment) {
                 return [
                     'id' => $payment->id,
-                    'rental_payment' => $payment->rentalPayment->toArray(),
+                    'rental_payment' => $payment->rentalPayment ? $payment->rentalPayment->toArray() : [],
                     'paid' => $payment->rentalPayment !== null ? true : false,
                     'due_date' => $payment->date_begin->format('d'),
                     'payable' => $payment->rentalPayment !== null ? 'Pago' : (date('d') > $payment->date_begin->format('d') ? 'Atrasado' : 'A vencer'),

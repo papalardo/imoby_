@@ -6,6 +6,7 @@ use App\Contact;
 use Inertia\Inertia;
 use App\Models\Tenant;
 use App\Models\Property;
+use App\Models\PropertyOwner;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
@@ -23,7 +24,9 @@ class PropertiesController extends Controller
 
     public function create()
     {
-        return Inertia::render('Properties/Create');
+        return Inertia::render('Properties/Create', [
+            'propertyOwners' => PropertyOwner::orderBy('first_name')->get()->map->only('id', 'first_name'),
+        ]);
     }
 
     public function store()
@@ -32,6 +35,7 @@ class PropertiesController extends Controller
             Request::validate([
                 'address' => ['required', 'max:50'],
                 'ceb_code' => ['required', 'max:50'],
+                'property_owner_id' => ['required']
             ])
         );
 
@@ -42,6 +46,7 @@ class PropertiesController extends Controller
     {
         return Inertia::render('Properties/Edit', [
             'property' => $property->toArray(),
+            'propertyOwners' => PropertyOwner::orderBy('first_name')->get()->map->only('id', 'first_name'),
         ]);
     }
 

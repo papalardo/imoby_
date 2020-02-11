@@ -18,7 +18,7 @@
         <div class="bg-white rounded shadow overflow-x-auto">
             <table class="w-full whitespace-no-wrap">
                 <tr class="text-left font-bold">
-                    <th class="px-6 pt-6 pb-4">Locador</th>
+                    <th class="px-6 pt-6 pb-4">Proprietário</th>
                     <th class="px-6 pt-6 pb-4">Imóvel</th>
                     <th class="px-6 pt-6 pb-4" colspan="2">Inquilino</th>
                 </tr>
@@ -32,7 +32,7 @@
                             class="px-6 py-4 flex items-center focus:text-indigo-500"
                             :href="route('contracts.edit', contract.id)"
                         >
-                            {{ contract.locator }}
+                            {{ contract.propertyOwner }}
                             <icon
                                 v-if="contract.deleted_at"
                                 name="trash"

@@ -6,29 +6,30 @@ use App\Contact;
 use Inertia\Inertia;
 use App\Models\Tenant;
 use App\Models\Locator;
+use App\Models\PropertyOwner;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 
-class LocatorsController extends Controller
+class PropertyOwnerController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Locators/Index', [
+        return Inertia::render('PropertyOwner/Index', [
             'filters' => Request::all('search', 'trashed'),
-            'locators' => Locator::filter(Request::only('search', 'trashed'))->paginate()
+            'locators' => PropertyOwner::filter(Request::only('search', 'trashed'))->paginate()
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('Locators/Create');
+        return Inertia::render('PropertyOwner/Create');
     }
 
     public function store()
     {
-        Locator::create(
+        PropertyOwner::create(
             Request::validate([
                 'first_name' => ['required', 'max:50'],
                 'last_name' => ['required', 'max:50'],
@@ -44,7 +45,7 @@ class LocatorsController extends Controller
 
     public function edit(Locator $locator)
     {
-        return Inertia::render('Locators/Edit', [
+        return Inertia::render('PropertyOwner/Edit', [
             'locator' => $locator->toArray(),
         ]);
     }

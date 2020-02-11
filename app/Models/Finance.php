@@ -12,6 +12,7 @@ class Finance extends Model
     
     protected $fillable = [
         'contract_id',
+        'property_owner_id',
         'month_ref',
         'year_ref',
         'type',

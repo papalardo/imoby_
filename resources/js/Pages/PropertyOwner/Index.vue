@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1 class="mb-8 font-bold text-3xl">Locadores</h1>
+		<h1 class="mb-8 font-bold text-3xl">Proprietários</h1>
 		<div class="mb-6 flex justify-between items-center">
 			<search-filter v-model="form.search" class="w-full max-w-md mr-4" @reset="reset">
 				<label class="block text-gray-700">Trashed:</label>
@@ -12,7 +12,7 @@
 			</search-filter>
 			<inertia-link class="btn-indigo" :href="route('locators.create')">
 				<span>Novo</span>
-				<span class="hidden md:inline">locador</span>
+				<span class="hidden md:inline">proprietário</span>
 			</inertia-link>
 		</div>
 		<div class="bg-white rounded shadow overflow-x-auto">

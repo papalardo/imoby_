@@ -16,10 +16,10 @@ class CreateFinancesTable extends Migration
         Schema::create('finances', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedBigInteger('contract_id');
+            $table->unsignedBigInteger('contract_id')->nullable();
             $table->foreign('contract_id')->references('id')->on('contracts');
 
-            $table->unsignedBigInteger('property_owner_id');
+            $table->unsignedBigInteger('property_owner_id')->nullable();
             $table->foreign('property_owner_id')->references('id')->on('property_owners');
 
             $table->integer('month_ref');

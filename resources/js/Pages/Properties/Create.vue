@@ -9,6 +9,21 @@
         <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
           <text-input v-model="form.address" :errors="$page.errors.address" class="pr-6 pb-8 w-full lg:w-1/2" label="Endereço" />
           <text-input v-model="form.ceb_code" :errors="$page.errors.ceb_code" class="pr-6 pb-8 w-full lg:w-1/2" label="Código CEB" />
+          <select-input
+						v-model="form.property_owner_id"
+						:errors="$page.errors.property_owner_id"
+						class="pr-6 pb-8 w-full lg:w-1/2"
+						label="Proprietário"
+					>
+						<option :value="null" />
+						<option
+							v-for="locator in propertyOwners"
+							:key="locator.id"
+							:value="locator.id"
+						>
+							{{ locator.first_name }}
+						</option>
+					</select-input>
         </div>
         <div class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex justify-end items-center">
           <loading-button :loading="sending" class="btn-indigo" type="submit">Criar imóvel</loading-button>
@@ -33,12 +48,16 @@ export default {
     TextInput,
   },
   remember: 'form',
+  props: {
+      propertyOwners: Array,
+  },
   data() {
     return {
       sending: false,
       form: {
         address: null,
         ceb_code: null,
+        property_owner_id: null,
       },
     }
   },

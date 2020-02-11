@@ -8,6 +8,7 @@ use App\Models\Tenant;
 use App\Models\Locator;
 use App\Models\Contract;
 use App\Models\Property;
+use App\Models\PropertyOwner;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
@@ -19,12 +20,12 @@ class ContractsController extends Controller
     {
         return Inertia::render('Contracts/Index', [
             'filters' => Request::all('search', 'trashed'),
-            'contracts' => Contract::with(['tenant', 'locator'])->paginate()
+            'contracts' => Contract::with(['tenant', 'propertyOwner'])->paginate()
                     ->transform(function ($contract) {
                         return [
                             'id' => $contract->id,
                             'tenant' => $contract->tenant->first_name,
-                            'locator' => $contract->locator->first_name,
+                            'propertyOwner' => $contract->propertyOwner->first_name,
                             'property' => $contract->property->address,
                         ];
                     })
@@ -34,7 +35,7 @@ class ContractsController extends Controller
     public function create()
     {
         return Inertia::render('Contracts/Create', [
-            'locators' => Locator::orderBy('first_name')->get()->map->only('id', 'first_name'),
+            'propertyOwners' => PropertyOwner::orderBy('first_name')->get()->map->only('id', 'first_name'),
             'properties' => Property::orderBy('address')->get()->map->only('id', 'address'),
             'tenants' => Tenant::orderBy('first_name')->get()->map->only('id', 'first_name'),
         ]);
@@ -45,7 +46,7 @@ class ContractsController extends Controller
         Contract::create(
             Request::validate([
                 'property_id' => ['nullable', Rule::exists('properties', 'id')],
-                'locator_id' => ['nullable', Rule::exists('locators', 'id')],
+                'property_owner_id' => ['nullable', Rule::exists('property_owners', 'id')],
                 'tenant_id' => ['nullable', Rule::exists('tenants', 'id')],
                 'date_begin' => ['nullable', 'max:10'],
                 'date_end' => ['nullable', 'max:10'],
